@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.sujithkanna:smileyrating:1.6.8@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c0b65ed483dd8193141725c682ce8b64/jetified-smileyrating-1.6.8/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c0b65ed483dd8193141725c682ce8b64/jetified-smileyrating-1.6.8/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c0b65ed483dd8193141725c682ce8b64/jetified-smileyrating-1.6.8/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c0b65ed483dd8193141725c682ce8b64/jetified-smileyrating-1.6.8/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.sujithkanna/smileyrating/1.6.8/3a9b1e31d03d99c18f9dadc6f53ca69c6d0049ea/smileyrating-1.6.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.sujithkanna/smileyrating/1.6.8/cc023b8d7887cee42aac6230aebb8ad658c531e1/smileyrating-1.6.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

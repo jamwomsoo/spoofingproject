@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center"
+            android:text="BTS \nBlock The Spoofing"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/gotoLoginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="로그인" />
+
+            <Button
+                android:id="@+id/gotoSignUpButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="회원가입" />
+
+            <Button
+                android:id="@+id/gotoOTPButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OTP테스트" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

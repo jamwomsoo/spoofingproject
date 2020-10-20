@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "804606110787",
+    "firebase_url": "https://videoex-52fd4.firebaseio.com",
+    "project_id": "videoex-52fd4",
+    "storage_bucket": "videoex-52fd4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804606110787:android:a31765aa93dd8bebe5f8f6",
+        "android_client_info": {
+          "package_name": "com.example.videoex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804606110787-g0ccm3k0p10a6jd0h4obvd6pbc1cimno.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.videoex",
+            "certificate_hash": "31ac8a61a5392856c54cf0b8b70ebd191b71e4a8"
+          }
+        },
+        {
+          "client_id": "804606110787-2s5u3tv52nu9995ja0q8vl8lnth6sol8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeYb__0-wR-DY9q_QiRYA_tCrlC9L6cLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804606110787-2s5u3tv52nu9995ja0q8vl8lnth6sol8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
