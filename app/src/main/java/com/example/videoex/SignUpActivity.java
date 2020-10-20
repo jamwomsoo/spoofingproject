@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,17 +30,65 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference mDatabase; // 네트워크 연결
     User user;
+    // 체크박스 체크여부
+    public int TERMS_AGREE_1 = 0; // No Check = 0, Check = 1
+    public int TERMS_AGREE_2 = 0; // No Check = 0, Check = 1
+    public int TERMS_AGREE_3 = 0; // No Check = 0, Check = 1
+    // 체크박스
+    AppCompatCheckBox check1; // 첫번쨰 동의
+    AppCompatCheckBox check2; // 두번쨰 동의
+    AppCompatCheckBox check3; // 전체 동의
 
-
+    private Button terms1Btn;
+    private Button terms2Btn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signup2);
 
         //초기화
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.signUpButton).setOnClickListener(onClickListener);
+        terms1Btn = findViewById(R.id.terms1);
+        terms2Btn = findViewById(R.id.terms2);
+
+        check1 = (AppCompatCheckBox)findViewById(R.id.check1);
+        check2 = (AppCompatCheckBox)findViewById(R.id.check2);
+        check3 = (AppCompatCheckBox)findViewById(R.id.check3);
+        terms1Btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), TermsActivity1.class);
+                startActivity(intent);
+            }
+
+
+        });
+
+        terms2Btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), TermsActivity2.class);
+                startActivity(intent);
+            }
+
+
+        });
+        check3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (check3.isChecked() == true) {
+                    check1.setChecked(true);
+                    check2.setChecked(true);
+                    TERMS_AGREE_3 = 1;
+                } else {
+                    check1.setChecked(false);
+                    check2.setChecked(false);
+                    TERMS_AGREE_3 = 0;
+                }
+            }
+        });
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -67,6 +119,73 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(phone)) {
             startToast("휴대폰 번호를 입력해주세요");
         }
+        // 초항동의
+        check1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    TERMS_AGREE_1 = 1;
+                } else {
+                    TERMS_AGREE_1 = 0;
+                }
+            }
+        });
+        // 2항동의
+        check2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    TERMS_AGREE_2 = 1;
+                } else {
+                    TERMS_AGREE_2 = 0;
+                }
+            }
+        });
+        // 전체동의
+//        check3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked == true) {
+//                    check1.setChecked(true);
+//                    check2.setChecked(true);
+//                    TERMS_AGREE_3 = 1;
+//                } else {
+//                    check1.setChecked(false);
+//                    check2.setChecked(false);
+//                    TERMS_AGREE_3 = 0;
+//                }
+//            }
+//
+//
+//
+//        });
+//        if(check3.isChecked()){
+//            check1.setChecked(true);
+//            check2.setChecked(true);
+//        }
+//        else {
+//            check1.setChecked(false);
+//            check2.setChecked(false);
+//            TERMS_AGREE_3 = 0;
+//        }
+        // 전체 약관 체크여부
+        if (TERMS_AGREE_3 != 1) {
+            // 첫번째 약관 체크여부
+            if (TERMS_AGREE_2 == 1) {
+                // 두번쨰 약관 체크 여부
+                if (TERMS_AGREE_1 == 1) {
+                } else {
+                    Toast.makeText(getApplicationContext(), "약관을 체크해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "약관을 체크해주세요", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+
         // 휴대폰 번호 정규식 검사 & 중복 검사
         String regExp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$";
         if(phone.matches(regExp) == false){
@@ -121,5 +240,8 @@ public class SignUpActivity extends AppCompatActivity {
         intent.putExtra("phone",phone); //휴대폰 번호 넘길 것 "매개변수명", 데이터
         startActivity(intent);
     }
+
+
+
 
 }

@@ -30,12 +30,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".VideoActivity" />
+        <activity android:name=".VideoActivity" >
+
+        </activity>
         <activity android:name=".MyPageActivity" />
         <activity android:name=".LoginActivity"/>
         <activity
             android:name=".faceDetect.FaceDetection"
             android:screenOrientation="portrait" />
+        <activity android:name=".TermsActivity1"
+        android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"></activity>
+        <activity android:name=".TermsActivity2"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"></activity>
+
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"

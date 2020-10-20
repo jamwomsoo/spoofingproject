@@ -1,6 +1,8 @@
 package com.example.videoex;
 
 import android.content.Intent;
+import android.hardware.camera2.CameraDevice;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,6 +35,9 @@ public class VideoActivity extends AppCompatActivity {
     private String _phone;
     private DatabaseReference mDatabase; // 네트워크 연결
 
+    public static final String CAMERA_FRONT = "1";
+    public static final String CAMERA_BACK = "0";
+    private String cameraId = CAMERA_BACK;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +48,7 @@ public class VideoActivity extends AppCompatActivity {
         Intent signUp_intent = getIntent();
         _phone = signUp_intent.getStringExtra("phone");
         //비디오 화면 띄워주기
-        startVideo();
+        dispatchTakeVideoIntent();
         //이름 네이밍
         create_Video_Name(storageRef);
 
@@ -57,15 +62,36 @@ public class VideoActivity extends AppCompatActivity {
 //        videoref =storageRef.child("/videos/" + time1 + _phone);
 
         // 파일명 : 회원전화번호
-        videoref =storageRef.child("/videos/" + _phone);
+        videoref =storageRef.child("/Register/" + _phone);
     }
 
-    private void startVideo() {
-        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
-        intent.putExtra("android.intent.extra.durationLimit",5);
-        startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
+    static final int REQUEST_VIDEO_CAPTURE = 1;
+
+    private void dispatchTakeVideoIntent() {
+        
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+
+
+
+        takeVideoIntent.putExtra("android.intent.extra.durationLimit",5);
+        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+        }
+
     }
+
+//    private void startVideo() {
+//        MediaStore mediaStore;
+//
+//
+//        //Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+//        // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
+//
+//
+//
+//        //
+//        //startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
+//    }
 
     public void updateProgress(UploadTask.TaskSnapshot taskSnapshot) {
 

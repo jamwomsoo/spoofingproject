@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private String _phone;
     private DatabaseReference mDatabase; // 네트워크 연결
 
+    static final int REQUEST_VIDEO_CAPTURE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //비디오 화면 띄워주기
-        startVideo();
+        dispatchTakeVideoIntent();
         //이름 네이밍
         create_Video_Name(storageRef);
     }
@@ -58,11 +59,17 @@ public class LoginActivity extends AppCompatActivity {
         videoref =storageRef.child("/Login/" + _phone);
     }
 
-    private void startVideo() {
-        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        intent.putExtra("android.intent.extra.durationLimit",3);
-        startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
+    private void dispatchTakeVideoIntent() {
+
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        takeVideoIntent.putExtra("android.intent.extra.durationLimit",5);
+        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+        }
+
     }
+
+
 
     public void updateProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
