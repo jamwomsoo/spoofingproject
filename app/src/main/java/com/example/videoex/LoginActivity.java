@@ -5,11 +5,16 @@ OTP -> 로그인하기 위한 얼굴 영상 촬영
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -49,7 +54,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //비디오 화면 띄워주기
-        dispatchTakeVideoIntent();
+        startVideo();
+        //dispatchTakeVideoIntent();
         //이름 네이밍
         create_Video_Name(storageRef);
     }
@@ -57,6 +63,50 @@ public class LoginActivity extends AppCompatActivity {
     private void create_Video_Name(StorageReference storageRef ) {
         // 파일명 : 회원전화번호
         videoref =storageRef.child("/Login/" + _phone);
+    }
+
+    public void checkSelfPermission() {
+        String temp = "";
+        //파일 읽기 권한 확인
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.CAMERA+ " ";
+        }
+
+
+        if (TextUtils.isEmpty(temp) == false) {
+            //권한 요청
+            ActivityCompat.requestPermissions(this, temp.trim().split(" "),1); }
+        else {
+            //모두 허용 상태
+            Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show(); }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //권한을 허용 했을 경우
+        if(requestCode == 1){
+            int length = permissions.length;
+            for (int i = 0; i < length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    // 동의
+                    Log.d("MainActivity","권한 허용 : " + permissions[i]);
+                }
+            }
+            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
+            intent.putExtra("android.intent.extra.durationLimit",5);
+            try {
+                startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
+
+            }catch (Exception e){
+                Log.e(TAG,e.getMessage());
+            }
+        }
+    }
+
+    private void startVideo() {
+        checkSelfPermission();
     }
 
     private void dispatchTakeVideoIntent() {

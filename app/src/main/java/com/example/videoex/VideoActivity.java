@@ -32,9 +32,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class VideoActivity extends AppCompatActivity {
-
-
-
     private static final String TAG = "TAG";
     private Uri videouri;
     private static final int REQUEST_CODE = 101;
@@ -73,20 +70,6 @@ public class VideoActivity extends AppCompatActivity {
         videoref =storageRef.child("/Register/" + _phone);
     }
 
-    static final int REQUEST_VIDEO_CAPTURE = 1;
-
-//    private void dispatchTakeVideoIntent() {
-//
-//        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-//
-//
-//
-//        takeVideoIntent.putExtra("android.intent.extra.durationLimit",5);
-//        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
-//            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
-//        }
-//
-//    }
     public void checkSelfPermission() {
         String temp = "";
         //파일 읽기 권한 확인
@@ -115,23 +98,20 @@ public class VideoActivity extends AppCompatActivity {
                  Log.d("MainActivity","권한 허용 : " + permissions[i]);
                 }
                 }
+                Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
+                intent.putExtra("android.intent.extra.durationLimit",5);
+                try {
+                    startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
+
+                }catch (Exception e){
+                    Log.e(TAG,e.getMessage());
+                }
             }
     }
 
     private void startVideo() {
-
         checkSelfPermission();
-
-         Intent intent = new Intent(MediaStore.INTENT_ACTION_VIDEO_CAMERA);
-        // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
-        intent.putExtra("android.intent.extra.durationLimit",5);
-        try {
-            startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
-
-        }catch (Exception e){
-            Log.e(TAG,e.getMessage());
-        }
-
     }
 
 
