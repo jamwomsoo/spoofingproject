@@ -62,8 +62,6 @@ public class SignUpActivity extends AppCompatActivity {
                 Intent intent = new Intent(view.getContext(), TermsActivity1.class);
                 startActivity(intent);
             }
-
-
         });
 
         terms2Btn.setOnClickListener(new View.OnClickListener(){
@@ -72,9 +70,59 @@ public class SignUpActivity extends AppCompatActivity {
                 Intent intent = new Intent(view.getContext(), TermsActivity2.class);
                 startActivity(intent);
             }
-
-
         });
+        checkOne();
+        checktwo();
+        allCheck();
+
+    }
+
+
+
+    private void checkOne() {
+        check1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (check1.isChecked() == true) {
+                    TERMS_AGREE_1 = 1;
+
+                } else {
+                    TERMS_AGREE_1 = 0;
+                }
+                if(check1.isChecked() && check2.isChecked()){
+                    check3.setChecked(true);
+                    TERMS_AGREE_3 = 1;
+                }
+                else {
+                    check3.setChecked(false);
+                    TERMS_AGREE_3 = 0;
+                }
+            }
+        });
+    }
+    private void checktwo() {
+        // 2항동의
+        check2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (check2.isChecked() == true) {
+                    TERMS_AGREE_2 = 1;
+
+                } else {
+                    TERMS_AGREE_2 = 0;
+                }
+                if(check1.isChecked() && check2.isChecked()){
+                    check3.setChecked(true);
+                    TERMS_AGREE_3 = 1;
+                }
+                else {
+                    check3.setChecked(false);
+                    TERMS_AGREE_3 = 0;
+                }
+            }
+        });
+    }
+    private void allCheck() {
         check3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +146,7 @@ public class SignUpActivity extends AppCompatActivity {
                 case R.id.signUpButton:
                     signUp();
                     break;
+
             }
         }
     };
@@ -106,9 +155,7 @@ public class SignUpActivity extends AppCompatActivity {
         final String name = ((EditText) findViewById(R.id.nameEditText)).getText().toString();
         final String email = ((EditText) findViewById(R.id.emailEditText)).getText().toString();
         String phone = ((EditText) findViewById(R.id.phoneEditText)).getText().toString();
-        if (phone.startsWith("0")) {
-            phone = phone.substring(1);
-        }
+
         //User 클래스를 이용하여 빈 객체 만든다
         final User user = new User();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("UserList"); //userList 라는 키를 가진 값들을 참조한다.
@@ -119,56 +166,7 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(phone)) {
             startToast("휴대폰 번호를 입력해주세요");
         }
-        // 초항동의
-        check1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    TERMS_AGREE_1 = 1;
-                } else {
-                    TERMS_AGREE_1 = 0;
-                }
-            }
-        });
-        // 2항동의
-        check2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    TERMS_AGREE_2 = 1;
-                } else {
-                    TERMS_AGREE_2 = 0;
-                }
-            }
-        });
-        // 전체동의
-//        check3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked == true) {
-//                    check1.setChecked(true);
-//                    check2.setChecked(true);
-//                    TERMS_AGREE_3 = 1;
-//                } else {
-//                    check1.setChecked(false);
-//                    check2.setChecked(false);
-//                    TERMS_AGREE_3 = 0;
-//                }
-//            }
-//
-//
-//
-//        });
-//        if(check3.isChecked()){
-//            check1.setChecked(true);
-//            check2.setChecked(true);
-//        }
-//        else {
-//            check1.setChecked(false);
-//            check2.setChecked(false);
-//            TERMS_AGREE_3 = 0;
-//        }
+
         // 전체 약관 체크여부
         if (TERMS_AGREE_3 != 1) {
             // 첫번째 약관 체크여부
