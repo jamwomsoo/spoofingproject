@@ -27,7 +27,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>s
         </activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".VideoActivity" >

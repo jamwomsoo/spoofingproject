@@ -56,6 +56,8 @@ public class SignUpActivity extends AppCompatActivity {
         check1 = (AppCompatCheckBox)findViewById(R.id.check1);
         check2 = (AppCompatCheckBox)findViewById(R.id.check2);
         check3 = (AppCompatCheckBox)findViewById(R.id.check3);
+
+        //이용약관1
         terms1Btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -63,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //이용약관2
         terms2Btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -71,6 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //이용약관 체크
         checkOne();
         checktwo();
         allCheck();
@@ -167,22 +170,6 @@ public class SignUpActivity extends AppCompatActivity {
             startToast("휴대폰 번호를 입력해주세요");
         }
 
-        // 전체 약관 체크여부
-        if (TERMS_AGREE_3 != 1) {
-            // 첫번째 약관 체크여부
-            if (TERMS_AGREE_2 == 1) {
-                // 두번쨰 약관 체크 여부
-                if (TERMS_AGREE_1 == 1) {
-                } else {
-                    Toast.makeText(getApplicationContext(), "약관을 체크해주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            } else {
-                Toast.makeText(getApplicationContext(), "약관을 체크해주세요", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
-
 
         // 휴대폰 번호 정규식 검사 & 중복 검사
         String regExp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$";
@@ -224,6 +211,22 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             });
         }
+        // 전체 약관 체크여부
+        if (TERMS_AGREE_3 != 1) {
+            // 첫번째 약관 체크여부
+            if (TERMS_AGREE_2 == 1) {
+                // 두번쨰 약관 체크 여부
+                if (TERMS_AGREE_1 == 1) {
+                } else {
+                    Toast.makeText(getApplicationContext(), "약관을 체크해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "약관을 체크해주세요", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
 
     }
 
