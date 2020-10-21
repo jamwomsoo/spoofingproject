@@ -107,17 +107,18 @@ public class LoginActivity extends AppCompatActivity {
 
     private void startVideo() {
         checkSelfPermission();
-    }
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
+        intent.putExtra("android.intent.extra.durationLimit",5);
+        try {
+            startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
 
-    private void dispatchTakeVideoIntent() {
-
-        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        takeVideoIntent.putExtra("android.intent.extra.durationLimit",5);
-        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+        }catch (Exception e){
+            Log.e(TAG,e.getMessage());
         }
-
     }
+
+
 
 
 
