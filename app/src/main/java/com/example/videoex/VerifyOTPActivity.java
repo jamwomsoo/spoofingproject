@@ -41,7 +41,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
                 "+82-%s", getIntent().getStringExtra("mobile")
         ));
         phone = getIntent().getStringExtra("mobile");
-        phone =  "+82"+phone.substring(1,10);
+        phone =  "+82"+phone.substring(1,11);
         inputCode1 = findViewById(R.id.inputCode1);
         inputCode2 = findViewById(R.id.inputCode2);
         inputCode3 = findViewById(R.id.inputCode3);

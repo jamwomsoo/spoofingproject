@@ -32,6 +32,9 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "TAG";
     private Uri videouri;
@@ -40,6 +43,10 @@ public class LoginActivity extends AppCompatActivity {
     private String filename;
     private String _phone;
     private DatabaseReference mDatabase; // 네트워크 연결
+
+
+    FirebaseDatabase database;
+    DatabaseReference userRef;
 
     static final int REQUEST_VIDEO_CAPTURE = 1;
     @Override
@@ -51,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         Log.e("TAG","Phone : "+_phone);
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+
+        database = FirebaseDatabase.getInstance();
+        userRef = database.getReference("videoex-52fd4/UserList");
 
 
         //비디오 화면 띄워주기
@@ -109,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
         checkSelfPermission();
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
-        intent.putExtra("android.intent.extra.durationLimit",5);
+        intent.putExtra("android.intent.extra.durationLimit",3);
         try {
             startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
 
@@ -162,7 +172,8 @@ public class LoginActivity extends AppCompatActivity {
                             new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                                    mDatabase.child("UserList").child(_phone).child("state").setValue("Login");
                                     Toast.makeText(LoginActivity.this, "촬이 완료되었습니다.",
                                             Toast.LENGTH_LONG).show();
 

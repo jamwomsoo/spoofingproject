@@ -39,7 +39,7 @@ public class VideoActivity extends AppCompatActivity {
     private String filename;
     private String _phone;
     private DatabaseReference mDatabase; // 네트워크 연결
-
+    private String temp;
     public static final String CAMERA_FRONT = "1";
     public static final String CAMERA_BACK = "0";
     private String cameraId = CAMERA_BACK;
@@ -71,7 +71,7 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     public void checkSelfPermission() {
-        String temp = "";
+        temp = "";
         //파일 읽기 권한 확인
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -84,7 +84,7 @@ public class VideoActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, temp.trim().split(" "),1); }
         else {
             //모두 허용 상태
-        Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show(); }
+             Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show(); }
     }
 
     @Override
@@ -97,29 +97,31 @@ public class VideoActivity extends AppCompatActivity {
                     // 동의
                  Log.d("MainActivity","권한 허용 : " + permissions[i]);
                 }
-                }
-                Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
-                intent.putExtra("android.intent.extra.durationLimit",5);
-                try {
-                    startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
-
-                }catch (Exception e){
-                    Log.e(TAG,e.getMessage());
-                }
             }
+            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
+            intent.putExtra("android.intent.extra.durationLimit",5);
+            try {
+                startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
+
+            }catch (Exception e){
+                Log.e(TAG,e.getMessage());
+            }
+        }
     }
 
     private void startVideo() {
         checkSelfPermission();
-        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
-        intent.putExtra("android.intent.extra.durationLimit",5);
-        try {
-            startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
+        if (TextUtils.isEmpty(temp) == true) {
+            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            // 테스트를 위해 5초로 설정 -> 테스트 끝나면 20초로 변경
+            intent.putExtra("android.intent.extra.durationLimit", 5);
+            try {
+                startActivityForResult(intent, REQUEST_CODE); //startActivityForResult 새로운 액티비티 호출
 
-        }catch (Exception e){
-            Log.e(TAG,e.getMessage());
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
         }
     }
 
