@@ -6,7 +6,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
 
     <application
@@ -16,6 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".NoticeActivity"></activity>
         <activity
             android:name=".VerifyOTPActivity"
             android:screenOrientation="portrait"
@@ -29,22 +32,22 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>s
+            </intent-filter>
+            s
         </activity>
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".VideoActivity" >
-
-        </activity>
+        <activity android:name=".VideoActivity"></activity>
         <activity android:name=".MyPageActivity" />
-        <activity android:name=".LoginActivity"/>
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".faceDetect.FaceDetection"
             android:screenOrientation="portrait" />
-        <activity android:name=".TermsActivity1"
-        android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"></activity>
-        <activity android:name=".TermsActivity2"
-            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"></activity>
-
+        <activity
+            android:name=".TermsActivity1"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+        <activity
+            android:name=".TermsActivity2"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
