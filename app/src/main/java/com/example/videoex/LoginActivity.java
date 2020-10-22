@@ -45,8 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference mDatabase; // 네트워크 연결
 
 
-    FirebaseDatabase database;
-    DatabaseReference userRef;
+
 
     static final int REQUEST_VIDEO_CAPTURE = 1;
     @Override
@@ -56,12 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = getIntent();
         _phone = intent.getStringExtra("phone");
         Log.e("TAG","Phone : "+_phone);
-
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-
-        database = FirebaseDatabase.getInstance();
-        userRef = database.getReference("videoex-52fd4/UserList");
-
 
         //비디오 화면 띄워주기
         startVideo();
@@ -174,9 +168,34 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     mDatabase = FirebaseDatabase.getInstance().getReference();
                                     mDatabase.child("UserList").child(_phone).child("state").setValue("Login");
-                                    Toast.makeText(LoginActivity.this, "촬이 완료되었습니다.",
+                                    Toast.makeText(LoginActivity.this, "촬영이 완료되었습니다.",
                                             Toast.LENGTH_LONG).show();
-                                    
+
+
+                                    //데이터베이스에 저장된 동영상 url추가
+                                    final String _url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                                    final DatabaseReference leadersRef = FirebaseDatabase.getInstance().getReference("UserList");
+                                    final Query query = leadersRef.orderByChild("phone").equalTo(_phone);
+                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot snapshot) {
+                                            if(snapshot.exists()){
+                                                for (DataSnapshot child: snapshot.getChildren()) {
+                                                    //get the key of the child node that has to be updated
+                                                    String postkey = child.getRef().getKey();
+                                                    //url update
+                                                    String url = _url;
+                                                    leadersRef.child(postkey).child("loginUrl").setValue(url);
+                                                }
+                                            }
+                                        }
+                                        //이런...
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
                                     startMainpagectivity(_phone); // Main로 이동
                                 }
                             }).addOnProgressListener (new OnProgressListener<UploadTask.TaskSnapshot>() {
