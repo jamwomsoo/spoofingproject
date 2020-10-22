@@ -171,28 +171,29 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "촬영이 완료되었습니다.",
                                             Toast.LENGTH_LONG).show();
 
-//                                    //데이터베이스에 저장된 동영상 url추가
-//                                    final String _url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-//                                    final DatabaseReference leadersRef = FirebaseDatabase.getInstance().getReference("UserList");
-//                                    final Query query = leadersRef.orderByChild("phone").equalTo(_phone);
-//                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(DataSnapshot snapshot) {
-//                                            if(snapshot.exists()){
-//                                                for (DataSnapshot child: snapshot.getChildren()) {
-//                                                    //get the key of the child node that has to be updated
-//                                                    String postkey = child.getRef().getKey();
-//                                                    //url update
-//                                                    String url = _url;
-//                                                    leadersRef.child(postkey).child("loginUrl").setValue(url);
-//                                                }
-//                                            }
-//                                        }
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                                        }
-//                                    });
+                                    //데이터베이스에 저장된 동영상 url추가
+                                    final String _url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                                    final DatabaseReference leadersRef = FirebaseDatabase.getInstance().getReference("UserList");
+                                    final Query query = leadersRef.orderByChild("phone").equalTo(_phone);
+                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot snapshot) {
+                                            if(snapshot.exists()){
+                                                for (DataSnapshot child: snapshot.getChildren()) {
+                                                    //get the key of the child node that has to be updated
+                                                    String postkey = child.getRef().getKey();
+                                                    //url update
+                                                    String url = _url;
+                                                    leadersRef.child(postkey).child("loginUrl").setValue(url);
+                                                }
+                                            }
+                                        }
+                                        //이런...
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
                                     startMainpagectivity(_phone); // Main로 이동
                                 }
                             }).addOnProgressListener (new OnProgressListener<UploadTask.TaskSnapshot>() {
