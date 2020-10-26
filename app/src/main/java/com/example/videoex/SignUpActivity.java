@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -147,6 +145,11 @@ public class SignUpActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.signUpButton:
+//                    if((TERMS_AGREE_1 == 1 && TERMS_AGREE_2 == 1) || TERMS_AGREE_3 == 1){
+//                        signUp();
+//                    }else{
+//
+//                    }
                     signUp();
                     break;
 
@@ -164,12 +167,14 @@ public class SignUpActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("UserList"); //userList 라는 키를 가진 값들을 참조한다.
         if (TextUtils.isEmpty(name)) {
             startToast("이름을 입력해주세요");
+            return;
         } else if (TextUtils.isEmpty(email)) {
             startToast("e-mail을 입력해주세요");
+            return;
         } else if (TextUtils.isEmpty(phone)) {
             startToast("휴대폰 번호를 입력해주세요");
+            return;
         }
-
 
         // 휴대폰 번호 정규식 검사 & 중복 검사
         String regExp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$";
@@ -188,7 +193,7 @@ public class SignUpActivity extends AppCompatActivity {
                     boolean phoneIsExist = datasnapshot.exists();
                     System.out.print(phoneIsExist);
                     if(phoneIsExist){
-                        Toast.makeText(getApplicationContext(), "이미 가입된 휴대폰 번입니다\n다시 확인해 주세요.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "이미 가입된 휴대폰 번호입니다\n다시 확인해 주세요.",Toast.LENGTH_SHORT).show();
                     }
                     else {
                         if (name.length() > 0 && email.length() > 0 && finalPhone.length() > 0) {
@@ -201,8 +206,24 @@ public class SignUpActivity extends AppCompatActivity {
                             user.setApproval("F"); // 회원에게 있어서는 승인여부 관리자 입장에서는 학습여부 디폴트 값 F -> 승인 시 T 로 변경
                             user.setRegisterDate(time1);
                             user.setState("Register");
-                            mDatabase.child(finalPhone).setValue(user);  // 유저 휴대시폰 번호으로 UserList 하위 경로 생성 정보 저장
-                            startVideoActivity(finalPhone); // VideoActivity로 이동 (비디오 촬영)
+                            // 전체 약관 체크여부
+                            if (TERMS_AGREE_3 != 1) {
+                                // 첫번째 약관 체크여부
+                                if (TERMS_AGREE_2 == 1) {
+                                    // 두번쨰 약관 체크 여부
+                                    if (TERMS_AGREE_1 == 1) {
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "이용약관을 체크해주세요", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "개인정보취약관을 체크해주세요", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }else{
+                                mDatabase.child(finalPhone).setValue(user);  // 유저 휴대시폰 번호으로 UserList 하위 경로 생성 정보 저장
+                                startVideoActivity(finalPhone); // NoticeActivity로 이동 (비디오 촬영)
+                            }
                         }
                     }
                 }
@@ -211,21 +232,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             });
         }
-        // 전체 약관 체크여부
-        if (TERMS_AGREE_3 != 1) {
-            // 첫번째 약관 체크여부
-            if (TERMS_AGREE_2 == 1) {
-                // 두번쨰 약관 체크 여부
-                if (TERMS_AGREE_1 == 1) {
-                } else {
-                    Toast.makeText(getApplicationContext(), "약관을 체크해주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            } else {
-                Toast.makeText(getApplicationContext(), "약관을 체크해주세요", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
+
 
 
     }
@@ -237,7 +244,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void startVideoActivity(String phone) {
         //인텐트 객체 생성
-        Intent intent = new Intent(this, VideoActivity.class);
+        Intent intent = new Intent(this, NoticeActivity.class);
         intent.putExtra("phone",phone); //휴대폰 번호 넘길 것 "매개변수명", 데이터
         startActivity(intent);
     }

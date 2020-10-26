@@ -171,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "촬영이 완료되었습니다.",
                                             Toast.LENGTH_LONG).show();
 
+
                                     //데이터베이스에 저장된 동영상 url추가
                                     final String _url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
                                     final DatabaseReference leadersRef = FirebaseDatabase.getInstance().getReference("UserList");
@@ -194,6 +195,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         }
                                     });
+
                                     startMainpagectivity(_phone); // Main로 이동
                                 }
                             }).addOnProgressListener (new OnProgressListener<UploadTask.TaskSnapshot>() {

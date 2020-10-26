@@ -18,7 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".ServerConnect"></activity>
+
+        <activity android:name=".NoticeActivity"></activity>
+
         <activity
             android:name=".VerifyOTPActivity"
             android:screenOrientation="portrait"
