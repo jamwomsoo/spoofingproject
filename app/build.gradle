@@ -56,5 +56,5 @@ dependencies {
 
     implementation 'com.github.sujithkanna:smileyrating:1.6.8'
 
-    
+
 }

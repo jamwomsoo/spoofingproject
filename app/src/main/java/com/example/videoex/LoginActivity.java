@@ -221,7 +221,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void startMainpagectivity(String phone) {
         //인텐트 객체 생성
-        Intent intent = new Intent(this, MyPageActivity.class);
+        Intent intent = new Intent(this, ServerConnect.class);
         intent.putExtra("phone",phone); //휴대폰 번호 넘길 것 "매개변수명", 데이터
         startActivity(intent);
     }
