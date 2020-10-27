@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.dinuscxj.progressbar.CircleProgressBar;
 import com.example.videoex.R;
 
 import org.json.JSONException;
