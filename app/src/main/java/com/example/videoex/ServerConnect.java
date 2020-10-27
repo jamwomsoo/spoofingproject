@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
@@ -84,9 +85,12 @@ public class ServerConnect extends AppCompatActivity  {
             this.values = values;
         }//생성자
 
+        final ProgressBar progressBar = findViewById(R.id.progressBar);
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
 
         }//실행 이전 작업 정의 함수
 
@@ -108,6 +112,7 @@ public class ServerConnect extends AppCompatActivity  {
             // 통신이 완료되면 호출됩니다.
             // 결과에 따른 UI 수정 등은 여기서 합니다.
             try {
+                progressBar.setVisibility(View.GONE);
                 set_result(result);
             } catch (JSONException e) {
                 e.printStackTrace();
