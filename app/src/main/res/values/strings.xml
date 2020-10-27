@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">videoex</string>
+    <string name="app_name">BTS</string>
     <string name="video_button">Video Record Button</string>
     <string name="camera_button">Camera Capture Button</string>
     <string name="otp_verification">OTP Verification</string>

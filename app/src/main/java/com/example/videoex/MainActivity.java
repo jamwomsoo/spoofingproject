@@ -47,14 +47,14 @@ public class MainActivity extends AppCompatActivity {
             switch (v.getId()){
                 case R.id.gotoSignUpButton:
                     startSignUpActivity();
+                    finish();
                     break;
                 case R.id.gotoLoginButton:
 //                    myStartActivity(LoginActivity.class); // 로그인 화면
                     startOTPActivity();
+                    finish();
                     break;
-                case R.id.gotoOTPButton:
-                    //startOTPActivity();
-                    break;
+
             }
         }
     };
@@ -63,25 +63,12 @@ public class MainActivity extends AppCompatActivity {
     private void startOTPActivity() {
         Intent intent = new Intent(this, SendOTPActivity.class);
         startActivity(intent);
+        finish();
     }
 
-
-    //리스너에서 토스트가 안되가지고 함수로 만들어줌
-    private void startToast(String msg){
-        Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
-    }
-    //리스너에서 intent 사용이 안되가지고 함수로 만들어줌
-    private void myStartActivity(Class c) {
-        Intent intent = new Intent(this, c);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 로그인 하고 메인 화면에서 뒤로가기 누르면 앱 종료
-        startActivity(intent);
-    }
     private void startSignUpActivity() {
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
-    }
-    private void startLigInactivity() {
-        Intent intent = new Intent(this, FaceDetection.class);
-        startActivity(intent);
+        finish();
     }
 }

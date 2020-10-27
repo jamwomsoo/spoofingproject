@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.example.videoex.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +37,7 @@ public class ServerConnect extends AppCompatActivity  {
     private ProgressDialog dialog;
     private String phone;
     private int TIMEOUT_VALUE = 1000000;
-
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +119,7 @@ public class ServerConnect extends AppCompatActivity  {
             //--------------------------
             //   URL 설정하고 접속하기
             //--------------------------
+
             String str_URL = "http://" + RequestHttpURLConnection.server_ip + ":" + RequestHttpURLConnection.server_port + "/mobile";
 
             URL url = new URL(str_URL);
@@ -167,33 +170,27 @@ public class ServerConnect extends AppCompatActivity  {
     } // HttpPostDat
 
     private void set_result(String data) throws JSONException {
-
-
         String str_res = data;
         System.out.println("str_res:"+str_res+"shit");
 //        JSONObject jsonObject =  new JSONObject(str_res);
 //        String authenResult = jsonObject.getString("result");
-        System.out.println("accept1 = "+str_res.equals("accept"));
 
-
-        //System.out.println(str_res.getClass().getName());
-
-        //System.out.println("accept2 = "+(str_res == "accept"));
         if(str_res.equals("accept")) {
-//            dialog.setMessage("인증 완료");
-//            dialog.dismiss();
             System.out.print("accept page success");
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child("UserList").child(phone).child("approval").setValue("T");
             Intent intent = new Intent(this, MyPageActivity.class);
             intent.putExtra("phone",phone); //휴대폰 번호 넘길 것 "매개변수명", 데이터
             startActivity(intent);
+            finish();
 
         }
         else {
-//            dialog.setMessage("인증 불가");
-//            dialog.dismiss();
+
             System.out.print("accept page denied");
             Intent intent = new Intent(ServerConnect.this,MainActivity.class);
             startActivity(intent);
+            finish();
 
         }
         finish();

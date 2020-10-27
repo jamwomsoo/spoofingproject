@@ -33,6 +33,7 @@ public class NoticeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, VideoActivity.class);
         intent.putExtra("phone", _phone); //휴대폰 번호 넘길 것 "매개변수명", 데이터
         startActivity(intent);
+        finish();
     }
 }
 
