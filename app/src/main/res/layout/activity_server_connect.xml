@@ -34,7 +34,6 @@
         android:layout_weight="1"
         android:text="판별중"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="50dp
-" />
+        android:textSize="50dp" />
 
 </RelativeLayout>
