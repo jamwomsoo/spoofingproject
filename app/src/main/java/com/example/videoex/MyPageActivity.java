@@ -3,6 +3,8 @@ package com.example.videoex;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,8 @@ public class MyPageActivity extends AppCompatActivity {
     private String myName;
     private String myPhoneNum;
     private String myapproval;
+    Button gotoMainButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +32,15 @@ public class MyPageActivity extends AppCompatActivity {
 
         Intent signUp_intent = getIntent();
         _phone = signUp_intent.getStringExtra("phone");
+
+        gotoMainButton = findViewById(R.id.gotoMain);
+        gotoMainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyPageActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         final DatabaseReference leadersRef = FirebaseDatabase.getInstance().getReference("UserList");
 
@@ -38,10 +51,6 @@ public class MyPageActivity extends AppCompatActivity {
 
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()) {
                     User myUser = dataSnapshot1.getValue(User.class);
-                    Log.d("유저이름", myUser.getName());
-                    Log.d("유저 폰 번호", myUser.getPhone());
-                    Log.d("유저 승인 상태", myUser.getApproval());
-
                     myName = myUser.getName();
                     myPhoneNum = myUser.getPhone();
                     myapproval = myUser.getApproval();

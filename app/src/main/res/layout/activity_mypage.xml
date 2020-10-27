@@ -22,7 +22,7 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="280dp">
 
             <TableRow
                 android:id="@+id/row_1"
@@ -37,7 +37,8 @@
                     android:background="#ed8404"
                     android:gravity="center"
                     android:padding="32dp"
-                    android:text="이름" />
+                    android:text="이름"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/mypage_name"
@@ -50,6 +51,7 @@
                     android:gravity="center"
                     android:padding="32dp" />
             </TableRow>
+
             <TableRow
                 android:id="@+id/row_2"
                 android:layout_width="match_parent"
@@ -63,7 +65,8 @@
                     android:background="#ed8404"
                     android:gravity="center"
                     android:padding="32dp"
-                    android:text="휴대폰 번호" />
+                    android:text="휴대폰 번호"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/mypage_phone"
@@ -76,6 +79,7 @@
                     android:gravity="center"
                     android:padding="32dp" />
             </TableRow>
+
             <TableRow
                 android:id="@+id/row_3"
                 android:layout_width="match_parent"
@@ -89,7 +93,8 @@
                     android:background="#ed8404"
                     android:gravity="center"
                     android:padding="32dp"
-                    android:text="승인 상태" />
+                    android:text="승인 상태"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/mypage_approval"
@@ -102,12 +107,19 @@
                     android:gravity="center"
                     android:padding="32dp" />
             </TableRow>
-
         </TableLayout>
 
-
-
-
+        <Button
+            android:id="@+id/gotoMain"
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="30dp"
+            android:background="@drawable/background_button"
+            android:text="로그아웃"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
