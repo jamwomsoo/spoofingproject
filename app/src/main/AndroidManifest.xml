@@ -17,9 +17,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
-        <activity android:name=".ServerConnect"></activity>
+        <activity android:name=".ServerConnect">
+
+        </activity>
 
         <activity android:name=".NoticeActivity"></activity>
 
@@ -37,7 +40,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            s
+
         </activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".VideoActivity"></activity>
