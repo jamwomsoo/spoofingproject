@@ -45,15 +45,6 @@ public class ServerConnect extends AppCompatActivity  {
         Intent intent = getIntent();
         phone = intent.getStringExtra("phone");
         connect_server(phone);
-//        dialog = new ProgressDialog(ServerConnect.this); //프로그레스 대화상자 객체 생성
-//        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); //프로그레스 대화상자 스타일 원형으로 설정
-//        dialog.setMessage("제출 중입니다."); //프로그레스 대화상자 메시지 설정
-//        dialog.show(); //프로그레스 대화상자 띄우기
-
-//
-//        dialog = new ProgressDialog(ServerConnect.this);
-//        dialog.setMessage("인증 중 입니다");
-
 
     }
 
@@ -157,7 +148,7 @@ public class ServerConnect extends AppCompatActivity  {
             InputStreamReader tmp = new InputStreamReader(http.getInputStream(), "UTF-8");
             BufferedReader reader = new BufferedReader(tmp);
             StringBuilder builder = new StringBuilder();
-
+            http.disconnect();
             String str;
             while ((str = reader.readLine()) != null) {       // 서버에서 라인단위로 보내줄 것이므로 라인단위로 읽는다
                 builder.append(str);                     // View에 표시하기 위해 라인 구분자 추가
