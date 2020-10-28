@@ -47,9 +47,6 @@
         <activity android:name=".MyPageActivity" />
         <activity android:name=".LoginActivity" />
         <activity
-            android:name=".faceDetect.FaceDetection"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".TermsActivity1"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
         <activity

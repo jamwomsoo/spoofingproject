@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.videoex.faceDetect.FaceDetection;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.gotoLoginButton).setOnClickListener(onClickListener);
         findViewById(R.id.gotoSignUpButton).setOnClickListener(onClickListener);
-        //OTP테스트
-        findViewById(R.id.gotoOTPButton).setOnClickListener(onClickListener);
     }
 
 //    @Override
