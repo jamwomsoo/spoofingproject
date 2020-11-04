@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.videoex.R;
 import com.google.firebase.database.DatabaseReference;
@@ -121,7 +122,7 @@ public class ServerConnect extends AppCompatActivity  {
             //--------------------------
 
             String str_URL = "http://" + RequestHttpURLConnection.server_ip + ":" + RequestHttpURLConnection.server_port + "/mobile";
-
+            Log.e(TAG,"url : "+str_URL);
             URL url = new URL(str_URL);
             HttpURLConnection http = (HttpURLConnection) url.openConnection();   // 접속
             Log.e(TAG,"URL Connection");
@@ -188,6 +189,7 @@ public class ServerConnect extends AppCompatActivity  {
         else {
 
             System.out.print("accept page denied");
+            Toast.makeText(this, "인증 실패", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ServerConnect.this,MainActivity.class);
             startActivity(intent);
             finish();
