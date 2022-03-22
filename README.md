@@ -10,3 +10,5 @@ Liveness 얼굴인식 인증과 OTP인증을 활용한 다중인증 앱
 - Flask
 - Firebase
 - LivenessNet, FaceNet
+
+서버 쪽 링크 https://github.com/herbwood/face_liveness_detector
